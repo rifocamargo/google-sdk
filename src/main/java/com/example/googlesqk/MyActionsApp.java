@@ -27,12 +27,12 @@ public class MyActionsApp extends DialogflowApp {
 	
 	private static final String CLIENT_ID = "701662057594-m75o91vf9m9ubtpuatgph570dgl6ak0l.apps.googleusercontent.com";
 
-	@ForIntent("login")
+	@ForIntent("Default Welcome Intent")
 	public ActionResponse welcome(ActionRequest request) {
 		return getResponseBuilder(request).add(new SignIn().setContext("To get your account details")).build();
 	}
 
-	@ForIntent("login - yes")
+	@ForIntent("actions.intent.SIGN_IN")
 	public ActionResponse getSignInStatus(ActionRequest request) {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		if (request.isSignInGranted()) {
