@@ -29,7 +29,7 @@ public class MyActionsApp extends DialogflowApp {
 
 	@ForIntent("Default Welcome Intent")
 	public ActionResponse welcome(ActionRequest request) {
-		return getResponseBuilder(request).add(new SignIn()).build();
+		return getResponseBuilder(request).add(new SignIn().setContext("To get your account details")).add("Olá mano").build();
 	}
 
 	@ForIntent("actions.intent.SIGN_IN")
