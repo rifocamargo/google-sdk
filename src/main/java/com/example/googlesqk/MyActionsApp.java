@@ -27,7 +27,7 @@ public class MyActionsApp extends DialogflowApp {
 	
 	private static final String CLIENT_ID = "701662057594-m75o91vf9m9ubtpuatgph570dgl6ak0l.apps.googleusercontent.com";
 
-	@ForIntent("Default Welcome Intent")
+	@ForIntent("login")
 	public ActionResponse welcome(ActionRequest request) {
 		return getResponseBuilder(request).add(new SignIn().setContext("To get your account details")).build();
 	}
