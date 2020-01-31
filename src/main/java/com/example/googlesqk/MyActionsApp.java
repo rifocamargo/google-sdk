@@ -34,16 +34,16 @@ public class MyActionsApp extends DialogflowApp {
 
 	@ForIntent("Get user")
 	public ActionResponse getSignInStatus(ActionRequest request) {
-		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
+//		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
-		if (request.isSignInGranted()) {
+//		if (request.isSignInGranted()) {
 			LOGGER.info("Retrieving user from token '{}'", request.getUser().getIdToken());
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
 			responseBuilder
 					.add("I got your account details, " + profile.get("given_name") + ". What do you want to do next?");
-		} else {
-			responseBuilder.add("I won't be able to save your data, but what do you want to do next?");
-		}
+//		} else {
+//			responseBuilder.add("Usuário não está logado");
+//		}
 		return responseBuilder.build();
 	}
 
