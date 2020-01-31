@@ -40,7 +40,7 @@ public class MyActionsApp extends DialogflowApp {
 
 	@ForIntent("signin")
 	public ActionResponse signin(ActionRequest request) {
-		return getResponseBuilder(request).add(new SignIn().setContext("Para pegar os seus dados")).build();
+		return getResponseBuilder(request).add(new SignIn().setContext("Antes de começar sua experiência com a nossa assistente")).build();
 	}
 
 	private GoogleIdToken.Payload getUserProfile(String idToken) {
