@@ -30,7 +30,12 @@ public class MyActionsApp extends DialogflowApp {
 	public ActionResponse getSignInStatus(ActionRequest request) {
 		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
-		if (request.isSignInGranted()) {
+		if (!request.getUser().getUserVerificationStatus().equals("VERIFIED")) {
+			responseBuilder.add("Olá Visitante");
+			responseBuilder.endConversation();
+			return responseBuilder.build();
+		}
+		if (this.userIsSignedIn(request)) {
 			LOGGER.info("Retrieving user from token '{}'", request.getUser().getIdToken());
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
 			responseBuilder
@@ -50,6 +55,16 @@ public class MyActionsApp extends DialogflowApp {
 			LOGGER.error(e.toString());
 		}
 		return profile;
+	}
+	
+	private boolean userIsSignedIn(ActionRequest request) {
+		String idToken = request.getUser().getIdToken();
+		LOGGER.info(String.format("Id token: %s", idToken));
+		if (idToken == null || idToken.isEmpty()) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
 
