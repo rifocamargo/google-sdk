@@ -162,6 +162,7 @@ public class MyActionsApp extends DialogflowApp {
 	}
 
 	private GoogleIdToken.Payload getUserProfile(String idToken) {
+		LOGGER.info("Retrieving user from token '{}'", idToken);
 		GoogleIdToken.Payload profile = null;
 		try {
 			profile = tokenDecoder.decodeIdToken(idToken);
