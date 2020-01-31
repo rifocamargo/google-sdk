@@ -28,11 +28,6 @@ public class MyActionsApp extends DialogflowApp {
 	public ActionResponse welcome(ActionRequest request) {
 		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
-		if (!Optional.ofNullable(request.getUser()).map(User::getUserVerificationStatus).map("VERIFIED"::equals)
-				.orElse(false)) {
-			responseBuilder.add("Olá Visitante. Me desculpe, mais precisamos de sua identificação.");
-			return responseBuilder.add(new SignIn()).build();
-		}
 		if (this.userIsSignedIn(request)) {
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
 			responseBuilder.add(String.format("Olá %s! Vamos começar?", profile.get("given_name")));
@@ -45,7 +40,7 @@ public class MyActionsApp extends DialogflowApp {
 
 	@ForIntent("signin")
 	public ActionResponse signin(ActionRequest request) {
-		return getResponseBuilder(request).add(new SignIn()).build();
+		return getResponseBuilder(request).add(new SignIn().setContext("Para pegar os seus dados")).build();
 	}
 
 	private GoogleIdToken.Payload getUserProfile(String idToken) {
