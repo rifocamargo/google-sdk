@@ -1,7 +1,5 @@
 package com.example.googlesqk;
 
-import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import com.google.actions.api.ForIntent;
 import com.google.actions.api.response.ResponseBuilder;
 import com.google.actions.api.response.helperintent.SignIn;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
-import com.google.api.services.actions_fulfillment.v2.model.User;
 
 @Service
 public class MyActionsApp extends DialogflowApp {
@@ -41,8 +38,7 @@ public class MyActionsApp extends DialogflowApp {
 	@ForIntent("signin")
 	public ActionResponse signin(ActionRequest request) {
 		return getResponseBuilder(request)
-				.add(new SignIn().setContext("Antes de começar sua experiência com a nossa assistente"))
-				.add("Vamos começar").build();
+				.add(new SignIn().setContext("Antes de começar sua experiência com a nossa assistente")).build();
 	}
 
 	private GoogleIdToken.Payload getUserProfile(String idToken) {
