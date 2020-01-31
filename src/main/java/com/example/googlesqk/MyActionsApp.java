@@ -80,13 +80,14 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Tip: Sign In should not happen in the Default Welcome Intent, instead later
  * in the conversation. See `Action discovery` docs:
  * https://developers.google.com/actions/discovery/implicit#action_discovery
  */
-
+@Service
 public class MyActionsApp extends DialogflowApp {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MyActionsApp.class);
