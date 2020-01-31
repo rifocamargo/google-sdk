@@ -32,7 +32,7 @@ public class MyActionsApp extends DialogflowApp {
 		return getResponseBuilder(request).add(new SignIn().setContext("To get your account details")).add("Olá mano").build();
 	}
 
-	@ForIntent("actions.intent.SIGN_IN")
+//	@ForIntent("actions.intent.SIGN_IN")
 	public ActionResponse getSignInStatus(ActionRequest request) {
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		if (request.isSignInGranted()) {
