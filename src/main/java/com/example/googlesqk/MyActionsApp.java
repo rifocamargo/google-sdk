@@ -1,5 +1,7 @@
 package com.example.googlesqk;
 
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import com.google.actions.api.ForIntent;
 import com.google.actions.api.response.ResponseBuilder;
 import com.google.actions.api.response.helperintent.SignIn;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.services.actions_fulfillment.v2.model.User;
 
 @Service
 public class MyActionsApp extends DialogflowApp {
@@ -25,10 +28,10 @@ public class MyActionsApp extends DialogflowApp {
 	public ActionResponse welcome(ActionRequest request) {
 		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
-		if (!request.getUser().getUserVerificationStatus().equals("VERIFIED")) {
-			responseBuilder.add("Olá Visitante");
-			responseBuilder.endConversation();
-			return responseBuilder.build();
+		if (!Optional.ofNullable(request.getUser()).map(User::getUserVerificationStatus).map("VERIFIED"::equals)
+				.orElse(false)) {
+			responseBuilder.add("Olá Visitante. Me desculpe, mais precisamos de sua identificação.");
+			return responseBuilder.add(new SignIn()).build();
 		}
 		if (this.userIsSignedIn(request)) {
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
