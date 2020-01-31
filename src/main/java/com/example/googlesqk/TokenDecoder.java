@@ -23,7 +23,7 @@ public class TokenDecoder {
 
 		GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(transport, jsonFactory)
 				// Specify the CLIENT_ID of the app that accesses the backend:
-				.setAudience(Collections.singletonList(CLIENT_ID)).build();
+				.setAudience(Collections.singletonList(CLIENT_ID)).setIssuer("https://accounts.google.com").build();
 
 		GoogleIdToken idToken = verifier.verify(idTokenString);
 		return idToken.getPayload();
