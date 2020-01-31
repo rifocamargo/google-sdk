@@ -31,9 +31,8 @@ public class MyActionsApp extends DialogflowApp {
 			return responseBuilder.build();
 		}
 		if (this.userIsSignedIn(request)) {
-			LOGGER.info("Retrieving user from token '{}'", request.getUser().getIdToken());
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
-			responseBuilder.add("Olá ").add(profile.get("given_name").toString()).add("! Vamos começar?");
+			responseBuilder.add(String.format("Olá %s! Vamos começar?", profile.get("given_name")));
 		} else {
 			responseBuilder.add("Usuário não está logado");
 		}
@@ -58,7 +57,6 @@ public class MyActionsApp extends DialogflowApp {
 
 	private boolean userIsSignedIn(ActionRequest request) {
 		String idToken = request.getUser().getIdToken();
-		LOGGER.info("Id token: {}", idToken);
 		if (idToken == null || idToken.isEmpty()) {
 			return false;
 		} else {
