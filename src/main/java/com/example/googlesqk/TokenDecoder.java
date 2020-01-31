@@ -49,8 +49,19 @@ public class TokenDecoder {
 			LOGGER.info("Paylod is not ok");
 			LOGGER.info("googleIdToken.verifyIssuer(verifier.getIssuers()) = {}",
 					googleIdToken.verifyIssuer(verifier.getIssuers()));
+
 			LOGGER.info("googleIdToken.verifyAudience(verifier.getAudience()) = {}",
 					googleIdToken.verifyAudience(verifier.getAudience()));
+
+			LOGGER.info("googleIdToken.getPayload().getAudienceAsList().isEmpty() = {}",
+					googleIdToken.getPayload().getAudienceAsList().isEmpty());
+			googleIdToken.getPayload().getAudienceAsList().stream()
+					.forEach(aud -> LOGGER.info("googleIdToken.getPayload().getAudienceAsList().stream() = {}", aud));
+
+			LOGGER.info("verifier.getAudience().containsAll(googleIdToken.getPayload().getAudienceAsList()) = {}",
+					verifier.getAudience().containsAll(googleIdToken.getPayload().getAudienceAsList()));
+			verifier.getAudience().stream().forEach(aud -> LOGGER.info("verifier.getAudience().stream() = {}", aud));
+
 			LOGGER.info("googleIdToken.verifyTime(Clock.SYSTEM.currentTimeMillis(), 300) = {}",
 					googleIdToken.verifyTime(Clock.SYSTEM.currentTimeMillis(), 300));
 			return false;
