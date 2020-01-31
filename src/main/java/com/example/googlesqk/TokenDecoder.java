@@ -16,6 +16,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.google.api.client.util.store.MemoryDataStoreFactory;
 
 @Service
 public class TokenDecoder {
@@ -38,7 +39,7 @@ public class TokenDecoder {
 		GoogleAuthorizationCodeFlow googleAuthorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
 				GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(),
 				"701662057594-m75o91vf9m9ubtpuatgph570dgl6ak0l.apps.googleusercontent.com", "_omuAbRkJ8WGEd3BADK3lLcK",
-				Arrays.asList("openid", "profile", "email")).setAccessType("offline").build();
+				Arrays.asList("openid", "profile", "email")).setDataStoreFactory(new MemoryDataStoreFactory()).setAccessType("offline").build();
 		Credential credential = googleAuthorizationCodeFlow.loadCredential("rifocamargo@gmail.com");
 		System.out.println(credential.getAccessToken());
 
