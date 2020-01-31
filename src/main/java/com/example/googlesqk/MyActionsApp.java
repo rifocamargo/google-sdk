@@ -23,11 +23,6 @@ public class MyActionsApp extends DialogflowApp {
 
 	@ForIntent("Default Welcome Intent")
 	public ActionResponse welcome(ActionRequest request) {
-		return getResponseBuilder(request).add(new SignIn().setContext("To get your account details")).add("Olá mano").build();
-	}
-
-	@ForIntent("Get User")
-	public ActionResponse getSignInStatus(ActionRequest request) {
 		LOGGER.info("Signin is granted: '{}'", request.isSignInGranted());
 		ResponseBuilder responseBuilder = getResponseBuilder(request);
 		if (!request.getUser().getUserVerificationStatus().equals("VERIFIED")) {
@@ -39,11 +34,17 @@ public class MyActionsApp extends DialogflowApp {
 			LOGGER.info("Retrieving user from token '{}'", request.getUser().getIdToken());
 			GoogleIdToken.Payload profile = getUserProfile(request.getUser().getIdToken());
 			responseBuilder
-					.add("I got your account details, " + profile.get("given_name") + ". What do you want to do next?");
+					.add("Olá " + profile.get("given_name") + "!. Vamos começar?");
 		} else {
 			responseBuilder.add("Usuário não está logado");
 		}
 		return responseBuilder.build();
+		
+	}
+
+	@ForIntent("signin")
+	public ActionResponse signin(ActionRequest request) {
+		return getResponseBuilder(request).add(new SignIn()).build();
 	}
 
 	private GoogleIdToken.Payload getUserProfile(String idToken) {
