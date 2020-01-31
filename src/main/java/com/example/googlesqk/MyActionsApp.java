@@ -167,8 +167,7 @@ public class MyActionsApp extends DialogflowApp {
 		try {
 			profile = tokenDecoder.decodeIdToken(idToken);
 		} catch (Exception e) {
-			LOGGER.error("error decoding idtoken");
-			LOGGER.error(e.toString());
+			LOGGER.error("error decoding idtoken", e);
 		}
 		return profile;
 	}
