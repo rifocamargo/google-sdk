@@ -62,7 +62,7 @@ public class MyActionsApp extends DialogflowApp {
 	}
 
 	private boolean userIsSignedIn(ActionRequest request) {
-		System.out.println("request.getUser().getAccessToken(): " + request.getUser().getAccessToken());
+		System.out.println("request.getAppRequest().getUser().getAccessToken(): " + request.getAppRequest().getUser().getAccessToken());
 		String idToken = request.getUser().getIdToken();
 		if (idToken == null || idToken.isEmpty()) {
 			return false;
