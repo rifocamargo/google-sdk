@@ -2,16 +2,12 @@ package com.example.googlesqk;
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.util.Arrays;
 import java.util.Collections;
 
 import org.springframework.stereotype.Service;
 
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeFlow;
-import com.google.api.client.googleapis.auth.oauth2.GoogleAuthorizationCodeTokenRequest;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
-import com.google.api.client.googleapis.auth.oauth2.GoogleTokenResponse;
 import com.google.api.client.googleapis.javanet.GoogleNetHttpTransport;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -30,14 +26,5 @@ public class TokenDecoder {
 
 		GoogleIdToken idToken = verifier.verify(idTokenString);
 		return idToken.getPayload();
-	}
-
-	private void getAccessToken() throws GeneralSecurityException, IOException {
-		GoogleAuthorizationCodeFlow googleAuthorizationCodeFlow = new GoogleAuthorizationCodeFlow.Builder(
-				GoogleNetHttpTransport.newTrustedTransport(), JacksonFactory.getDefaultInstance(), CLIENT_ID,
-				"[[ENTER YOUR CLIENT SECRET]]", Arrays.asList("openid", "profile", "email")).setAccessType("offline")
-						.build();
-		GoogleAuthorizationCodeTokenRequest newTokenRequest = googleAuthorizationCodeFlow.newTokenRequest("");
-		GoogleTokenResponse googleTokenResponse = newTokenRequest.execute();
 	}
 }
