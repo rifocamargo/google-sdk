@@ -35,6 +35,16 @@ public class MyActionsApp extends DialogflowApp {
 
 	}
 
+	@ForIntent("actions.intent.SIGN_IN")
+	public ActionResponse getSignInStatus(ActionRequest request) {
+		LOGGER.info("actions.intent.SIGN_IN");
+		ResponseBuilder responseBuilder = getResponseBuilder(request);
+		if (request.isSignInGranted()) {
+			LOGGER.info("request.getUser().getAccessToken(): " + request.getUser().getAccessToken());
+		}
+		return responseBuilder.build();
+	}
+
 	@ForIntent("signin")
 	public ActionResponse signin(ActionRequest request) {
 		return getResponseBuilder(request)
@@ -60,6 +70,5 @@ public class MyActionsApp extends DialogflowApp {
 			return true;
 		}
 	}
-	
-	
+
 }
